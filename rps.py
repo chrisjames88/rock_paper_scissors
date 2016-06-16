@@ -1,4 +1,5 @@
 # Rock, Paper, Scissors
+# June 16th 2016
 # Patrick Mogianesi
 # Definitly room for imporvement, it's kinda messy.
 # But it's totally functional, which is nice.
