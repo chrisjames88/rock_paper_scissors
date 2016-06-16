@@ -1,5 +1,4 @@
 # Rock, Paper, Scissors
-# June 16th 2016
 # Patrick Mogianesi
 # Definitly room for imporvement, it's kinda messy.
 # But it's totally functional, which is nice.
@@ -13,7 +12,7 @@ game_actions = ["rock", "paper", "scissors"]
 #if the player wins, 1 score is added, same for comp if comp wins
 player_wins = 0
 computer_wins = 0
-
+print "First to 5 points wins."
 #called function that prints the scores stored in the variables
 def score(player_wins, computer_wins):
 	print "The player has %r wins, and the computer has %r wins" % (player_wins, computer_wins)
@@ -30,21 +29,56 @@ def play_again(player_wins, computer_wins):
 	else:
 		print "That input doesn't work, please input either y or n."
 		play_again(player_wins, computer_wins)
-		
+
+
+#this function is used if either the player or computer gets 5 points		
+def reset(player_wins, computer_wins):
+	print "Would you like to play again?"
+	reset_choice = raw_input("> ")
+	
+	if reset_choice == "y":
+		print "You are restarting."
+		player_wins = 0
+		computer_wins = 0
+		game(player_wins, computer_wins)
+	elif reset_choice == "n":
+		print "Thank you for playing. :)"
+	else:
+		print "That's not a valid input"
+		reset(player_wins, computer_wins)
+
 #Main function which holds the game mechanics		
 def game(player_wins, computer_wins):
 	
+	print "Choose either rock, paper, or scissors."
+	
 	#this is the code that randomly chooses the action for the computer choice
 	computer_choice = random.choice(game_actions)
-	print "Choose either rock, paper, or scissors."
+	
 	
 	#the player choice, input by user
 	player_choice = raw_input("> ")
 	
+	
+	
+	# Win-states
+	# First to 5 points wins
+	if player_wins == 4:
+		score(player_wins, computer_wins)
+		print "The player wins!"
+		reset(player_wins, computer_wins)
+	
+	elif computer_wins == 4:
+		score(player_wins, computer_wins)
+		print "The computer wins!"
+		reset(player_wins, computer_wins)
+	
+	
+	
 	#Code here is based on what the computer & users are equal to
 	
 	#player picked rock situations
-	if player_choice == "rock" and computer_choice == "rock":
+	elif player_choice == "rock" and computer_choice == "rock":
 		print "It's a tie, you both threw rock."
 		score(player_wins, computer_wins)
 		play_again(player_wins, computer_wins)
@@ -83,8 +117,8 @@ def game(player_wins, computer_wins):
 	#player picked scissors situations
 	elif player_choice == "scissors" and computer_choice == "rock":
 		print "You lost, you chose scissors and computer chose rock."
-		score(player_wins, computer_wins)
 		computer_wins = computer_wins + 1
+		score(player_wins, computer_wins)
 		play_again(player_wins, computer_wins)
 		
 	elif player_choice == "scissors" and computer_choice == "scissors":
@@ -97,7 +131,13 @@ def game(player_wins, computer_wins):
 		player_wins = player_wins + 1
 		score(player_wins, computer_wins)
 		play_again(player_wins, computer_wins)
+		
+	elif player_choice == "gun":
+		print "Cheater, cheater pumpkin eater."
+		print "No points for you. :O"
+		play_again(player_wins, computer_wins)
 	
+
 	#reset back	
 	else:
 		print "That's not a valid command"
